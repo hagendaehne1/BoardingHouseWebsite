@@ -2,20 +2,25 @@ import ListingController from "./ListingController.js";
 import Listing from "./Listing.js";
 import User from "./User.js";
 import Owner from "./Owner.js";
+import Admin from "./Admin.js";
 import UserController from './UserController.js';
 
 export function initializeData() {
-  const listing1 = new Listing(1, 'Cozy Apartment', 1000.00, '/images/pexels-charlotte-may-5824531.jpg', 'A comfortable apartment in the heart of the city.');
-  const listing2 = new Listing(2, 'Spacious House', 2000.00, '/images/pexels-jonathanborba-5570224.jpg', 'A large family home with a beautiful garden.');
-  const listing3 = new Listing(3, 'Modern Loft', 1500.00, '/images/pexels-zvolskiy-3581753.jpg', 'A stylish loft apartment with great views.');
+  const listing1 = new Listing('Cozy Apartment', 1000.00, 'A comfortable apartment in the heart of the city.', '/images/pexels-charlotte-may-5824531.jpg', true);
+  const listing2 = new Listing('Spacious House', 2000.00, 'A large family home with a beautiful garden.', '/images/pexels-jonathanborba-5570224.jpg', true);
+  const listing3 = new Listing('Modern Loft', 1500.00, 'A stylish loft apartment with great views.', '/images/pexels-zvolskiy-3581753.jpg', true);
 
   ListingController.addListing(listing1);
   ListingController.addListing(listing2);
   ListingController.addListing(listing3);
 
-  const user1 = new User('Test', 'User', 'testuser@testmail.com', '123')
+  const user1 = new User('Test', 'User', 'user@user.com', '123')
   UserController.addUser(user1)
 
   const owner1 = new Owner('Test', 'Owner', 'owner@owner.com', '123')
+  UserController.addOwner(owner1)
+
+  const admin1 = new Admin('Test', 'Admin', 'admin@admin.com', '123')
+  UserController.addAdmin(admin1)
 
 }

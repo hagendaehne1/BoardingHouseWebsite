@@ -5,6 +5,8 @@ import { initializeData } from './models/Initializer.js'
 import ListingController from './models/ListingController.js';
 import UserController from './models/UserController.js';
 import User from './models/User.js';
+import Owner from './models/Owner.js';
+import Listing from './models/Listing.js';
 
 
 
@@ -36,6 +38,13 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'register.html'));
 });
+app.get('/owner_dashboard', (req, res) => {
+  res.sendFile(path.join(import.meta.dirname, 'views', 'owner_dashboard.html'));
+});
+app.get('/admin_dashboard', (req, res) => {
+  res.sendFile(path.join(import.meta.dirname, 'views', 'admin_dashboard.html'));
+});
+
 
 // API route for fetching all listings
 app.get('/api/listings', async (req, res) => {
@@ -51,7 +60,7 @@ app.get('/api/listings', async (req, res) => {
 // API route for fetching listing details
 app.get('/api/listings/:id', async (req, res) => {
   try {
-    const listingId = parseInt(req.params.id);
+    const listingId = req.params.id;
     const listing = ListingController.getListingById(listingId);
     
     if (listing) {
@@ -99,11 +108,7 @@ app.post("/register", (req, res) => {
 
 // Route for logging in a user
 app.post("/login", (req, res) => {
-
-  console.log(req.body)
   const { email, password } = req.body;
-
-
 
   // Validation: Check if all fields are provided
   if (!email || !password) {
@@ -121,9 +126,25 @@ app.post("/login", (req, res) => {
     return res.status(400).send("Invalid password.");
   }
 
-  // Success: Login user
-  return res.status(200).send(`Welcome back, ${user.firstName}!`);
+    // Role-based response
+    if (user instanceof Owner) {
+      return res.status(200).json({ message: "Login successful", role: "Owner" });
+    } else if (user instanceof User) {
+      return res.status(200).json({ message: "Login successful", role: "Renter" });
+    } else if (user instanceof Admin) {
+      return res.status(200).json({ message: "Login successful", role: "Admin" });
+    } else {
+      return res.status(400).send("User role not recognized.");
+    }
+
 });
+
+app.post("/api/create-post", (req, res) => {
+
+
+  const { title, price, description } = req.body
+  ListingController.addListing(new Listing(title, price, description))
+})
 
 // Start the server
 app.listen(port, () => {

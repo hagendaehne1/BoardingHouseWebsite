@@ -1,10 +1,14 @@
+import { randomUUID } from 'crypto'
+
+// attribute for verification
 class Listing {
-    constructor(id, title, price, image, description) {
-        this.id = id;
+    constructor(title, price, description, image = undefined, verified = false) {
+        this.id = randomUUID();
         this.title = title;
         this.price = price;
         this.image = image;
         this.description = description;
+        this.verified = verified
     }
 }
 
