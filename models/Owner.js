@@ -6,3 +6,5 @@ class Owner extends User {
         super(firstName, lastName, email, password)
     }
 }
+
+export default Owner;
