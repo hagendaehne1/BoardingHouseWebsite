@@ -1,6 +1,7 @@
 import ListingController from "./ListingController.js";
 import Listing from "./Listing.js";
 import User from "./User.js";
+import Owner from "./Owner.js";
 import UserController from './UserController.js';
 
 export function initializeData() {
@@ -12,6 +13,9 @@ export function initializeData() {
   ListingController.addListing(listing2);
   ListingController.addListing(listing3);
 
-  const user1 = new User('Test', 'User', 'testuser@testmail.com', 'test123')
+  const user1 = new User('Test', 'User', 'testuser@testmail.com', '123')
   UserController.addUser(user1)
+
+  const owner1 = new Owner('Test', 'Owner', 'owner@owner.com', '123')
+
 }

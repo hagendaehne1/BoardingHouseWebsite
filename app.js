@@ -67,10 +67,10 @@ app.get('/api/listings/:id', async (req, res) => {
 
 // Route for registering a new user
 app.post("/register", (req, res) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.params;
+  const { firstName, lastName, role, email, password, confirmPassword } = req.body;
 
   // Validation: Check if all fields are provided
-  if (!firstName || !lastName || !email || !password || !confirmPassword) {
+  if (!firstName || !lastName || !role || !email || !password || !confirmPassword) {
     return res.status(400).send("All fields are required.");
   }
 
@@ -85,10 +85,16 @@ app.post("/register", (req, res) => {
   }
 
   // Register the user
-  UserController.addUser(new User(firstName, lastName, email, password))
-  console.log("Registered users:", users);
+  if (role === "Renter") {
+    UserController.addUser(new User(firstName, lastName, email, password))
 
-  return res.status(201).send("User registered successfully!");
+    return res.status(201).send("User registered successfully!");
+  } else {
+    UserController.addOwner(new Owner(firstName, lastName, email, password))
+    return res.status(201).send("Owner registered successfully!");
+
+  }
+
 });
 
 // Route for logging in a user

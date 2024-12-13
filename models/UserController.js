@@ -1,7 +1,12 @@
 class UserController {
     static users = [];
+    static owners = [];
   
     static addUser(user) {
+      this.users.push(user);
+    }
+
+    static addOwner(user) {
       this.users.push(user);
     }
   

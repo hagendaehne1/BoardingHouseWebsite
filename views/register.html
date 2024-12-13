@@ -98,6 +98,14 @@
                 </div>
             </div>
             <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" name="role">
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="user">Renter</option>
+                    <option value="owner">Owner</option>
+                </select>
+            </div>            
+            <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter your email">
             </div>
@@ -109,18 +117,9 @@
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
             </div>
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="termsCheck">
-                <label class="form-check-label" for="termsCheck">
-                    I agree to the Terms and Conditions
-                </label>
-            </div>
             <button type="submit" class="btn btn-primary">Create Account</button>
             <div class="login-link">
                 Already have an account? <a href="login" class="text-decoration-none">Login</a>
-            </div>
-            <div class="terms-conditions">
-                By registering, you agree to our Terms of Service and Privacy Policy
             </div>
         </form>
     </div>
@@ -132,6 +131,7 @@
     
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
+            const role = document.getElementById("role").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
@@ -140,7 +140,7 @@
                 const response = await fetch("/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ firstName, lastName, email, password, confirmPassword }),
+                    body: JSON.stringify({ firstName, lastName, role, email, password, confirmPassword }),
                 });
     
                 const message = await response.text();
