@@ -1,0 +1,90 @@
+/* Light Gray Color Palette */
+:root {
+    --light-gray-50: #f9fafb;
+    --light-gray-100: #f3f4f6;
+    --light-gray-200: #e5e7eb;
+    --light-gray-300: #d1d5db;
+    --light-gray-400: #9ca3af;
+    --light-gray-500: #6b7280;
+    --light-gray-600: #4b5563;
+    --light-gray-700: #374151;
+    --light-gray-800: #1f2937;
+    --light-gray-900: #111827;
+}
+
+body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--light-gray-50);
+    color: var(--light-gray-800);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--light-gray-100);
+    border-bottom: 1px solid var(--light-gray-200);
+    padding: 1rem 0;
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auth-buttons {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+
+.auth-buttons .btn {
+    margin-left: 0.5rem;
+    border: 1px solid var(--light-gray-300);
+    transition: all 0.3s ease;
+}
+
+.auth-buttons .btn-outline-secondary {
+    background-color: white;
+    color: var(--light-gray-700);
+}
+
+.auth-buttons .btn-outline-secondary:hover {
+    background-color: var(--light-gray-100);
+    color: var(--light-gray-900);
+    border-color: var(--light-gray-400);
+}
+
+.auth-buttons .btn-primary {
+    background-color: var(--light-gray-800);
+    color: white;
+    border: none;
+}
+
+.auth-buttons .btn-primary:hover {
+    background-color: var(--light-gray-900);
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    position: relative;
+}
+
+/* Rest of the previous CSS remains the same */
+
+@media (max-width: 768px) {
+    .auth-buttons {
+        position: static;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}

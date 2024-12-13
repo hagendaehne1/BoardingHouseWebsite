@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - House Rental Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --light-gray-50: #f9fafb;
+            --light-gray-100: #f3f4f6;
+            --light-gray-200: #e5e7eb;
+            --light-gray-300: #d1d5db;
+            --light-gray-400: #9ca3af;
+            --light-gray-500: #6b7280;
+            --light-gray-600: #4b5563;
+            --light-gray-700: #374151;
+            --light-gray-800: #1f2937;
+            --light-gray-900: #111827;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--light-gray-50);
+            color: var(--light-gray-800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            border: 1px solid var(--light-gray-200);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--light-gray-900);
+        }
+
+        .form-control {
+            background-color: var(--light-gray-50);
+            border-color: var(--light-gray-300);
+        }
+
+        .form-control:focus {
+            background-color: white;
+            border-color: var(--light-gray-500);
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background-color: var(--light-gray-800);
+            border: none;
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--light-gray-900);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--light-gray-600);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--light-gray-600);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <div class="forgot-password">
+                <a href="#" class="text-decoration-none">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="register-link">
+                Don't have an account? <a href="register" class="text-decoration-none">Register</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector("form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+    
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+    
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password }),
+                });
+    
+                const message = await response.text();
+                if (response.ok) {
+                    alert(message); // Login successful
+                    // Redirect or do something else here
+                } else {
+                    alert(`Error: ${message}`); // Login failed
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                alert("An unexpected error occurred.");
+            }
+        });
+    </script>    
+</body>
+</html>
