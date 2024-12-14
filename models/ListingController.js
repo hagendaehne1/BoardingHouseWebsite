@@ -4,6 +4,13 @@ class ListingController {
     static addListing(listing) {
       this.listings.push(listing);
     }
+
+    static deleteListing(listing) {
+      const index = this.listings.indexOf(listing)
+      if (index > -1) {
+        this.listings.splice(index, 1); 
+      }
+    }
   
     static getListings() {
       return this.listings;

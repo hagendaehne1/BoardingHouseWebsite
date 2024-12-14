@@ -63,4 +63,18 @@ router.get('/api/verifylisting/:id', async (req, res) => {
   }
   });
 
+  router.get('/api/rejectlisting/:id', async (req, res) => {
+    try {
+        const listingId = req.params.id;
+        const listing = ListingController.getListingById(listingId);
+        console.log(listing)
+        ListingController.deleteListing(listing)
+        res.json(listing);
+        
+    } catch (error) {
+        console.error('Error fetching listing:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+    });
+
 export default router;

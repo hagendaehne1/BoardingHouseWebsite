@@ -115,7 +115,8 @@ function createListingCardForVerfication(listing) {
                     <p><strong>Address:</strong> ${listing.address}</p>
                     <p><strong>Description:</strong> ${listing.description}</p>
                     <p><strong>Contact:</strong> ${listing.contact}</p>
-                    <a onclick="verifyPost('${listing.id}')" class="btn btn-primary">Verify Post</a>
+                    <a onclick="verifyPost('${listing.id}')" class="btn btn-primary">Approve</a>
+                    <a onclick="rejectPost('${listing.id}')" class="btn btn-primary">Reject</a>
                 </div>
             </div>
         </div>
@@ -125,6 +126,17 @@ function createListingCardForVerfication(listing) {
 window.verifyPost = async function (listingId) {
     try {
         await fetch(`/api/verifylisting/${listingId}`);
+        location.reload();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load listing details. Please try again.');
+    }
+}
+
+window.rejectPost = async function (listingId) {
+    console.log(listingId)
+    try {
+        await fetch(`/api/rejectlisting/${listingId}`);
         location.reload();
     } catch (error) {
         console.error('Error:', error);
