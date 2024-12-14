@@ -39,7 +39,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Listing Details</h5>
+                    <h5 class="modal-title" id="detailsModalLabel">Post Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="listing-details">
@@ -68,8 +68,20 @@
                             <input type="number" class="form-control" id="post-price" placeholder="Enter price per month" required>
                         </div>
                         <div class="mb-3">
+                            <label for="post-address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="post-address" placeholder="Enter address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-image" class="form-label">Upload Image</label>
+                            <input type="file" class="form-control" id="post-image" accept="image/*">
+                        </div>
+                        <div class="mb-3">
                             <label for="post-description" class="form-label">Description</label>
                             <textarea class="form-control" id="post-description" rows="4" placeholder="Enter description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="post-contact" class="form-label">Contact Information</label>
+                            <input type="text" class="form-control" id="post-contact" placeholder="Enter contact information" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

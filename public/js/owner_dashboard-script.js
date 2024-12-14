@@ -15,16 +15,19 @@ window.viewDetails = async function(listingId) {
 document.getElementById('create-post-form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const title = document.getElementById('post-title').value;
-    const price = document.getElementById('post-price').value;
-    const description = document.getElementById('post-description').value;
+    const formData = new FormData();
+    formData.append("title", document.getElementById("post-title").value);
+    formData.append("price", document.getElementById("post-price").value);
+    formData.append("address", document.getElementById("post-address").value);
+    formData.append("description", document.getElementById("post-description").value);
+    formData.append("contact", document.getElementById("post-contact").value);
+    formData.append("image", document.getElementById("post-image").files[0]);
 
-    console.log("Creating post with values:", { title, price, description });
+    console.log("Creating post with values:", formData.entries());
 
     fetch('/api/create-post', {
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, price, description })
+        body: formData
     })
     .then(response => response.json())
     .catch(error => console.error('Error:', error));
@@ -92,7 +95,9 @@ function displayListingDetails(listing) {
         <h3>${listing.title}</h3>
         <img src="${listing.image}" class="img-fluid mb-3" style="height: 500px; width: 100%; object-fit: cover">
         <p><strong>Price:</strong> $${listing.price}/month</p>
+        <p><strong>Address:</strong> ${listing.address}</p>
         <p><strong>Description:</strong> ${listing.description}</p>
+        <p><strong>Contact:</strong> ${listing.contact}</p>
     `;
     
     const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));

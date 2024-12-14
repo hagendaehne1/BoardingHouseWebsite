@@ -64,7 +64,9 @@ function displayListingDetails(listing) {
         <h3>${listing.title}</h3>
         <img src="${listing.image}" class="img-fluid mb-3" style="height: 500px; width: 100%; object-fit: cover">
         <p><strong>Price:</strong> $${listing.price}/month</p>
+        <p><strong>Address:</strong> ${listing.address}</p>
         <p><strong>Description:</strong> ${listing.description}</p>
+        <p><strong>Contact:</strong> ${listing.contact}</p>
     `;
     
     const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));

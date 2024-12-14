@@ -12,27 +12,16 @@ window.viewDetails = async function(listingId) {
     }
 };
 
-// Function to create a listing card
-function createListingCardForVerfication(listing) {
-    if (listing.verified) {
-        return
+window.viewOpenRequests = async function() {
+    const verifyPostsModalBody = document.getElementById('verifyPostsModalBody')
+    const response = await fetch('/api/listings');
+    if (!response.ok) {
+        throw new Error('Failed to fetch listings');
     }
-    if (!listing.image) {
-        listing.image = "/images/pexels-markusspiske-102155.jpg";
-    }
-    return `
-        <div class="col-md-4 mb-4">
-            <div class="card listing-card">
-                <img src="${listing.image}" class="card-img-top" style="height: 500px; width: 100%; object-fit: cover">
-                <div class="card-body">
-                    <h5 class="card-title">${listing.title}</h5>
-                    <p class="card-text">$${listing.price}/month</p>
-                    <a onclick="viewDetails('${listing.id}')" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-    `;
+    const listings = await response.json();
+    verifyPostsModalBody.innerHTML = listings.map(createListingCardForVerfication).join('');
 }
+
 
 // Function to create a listing card
 function createListingCard(listing) {
@@ -88,7 +77,9 @@ function displayListingDetails(listing) {
         <h3>${listing.title}</h3>
         <img src="${listing.image}" class="img-fluid mb-3" style="height: 500px; width: 100%; object-fit: cover">
         <p><strong>Price:</strong> $${listing.price}/month</p>
+        <p><strong>Address:</strong> ${listing.address}</p>
         <p><strong>Description:</strong> ${listing.description}</p>
+        <p><strong>Contact:</strong> ${listing.contact}</p>
     `;
     
     const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
@@ -100,12 +91,36 @@ document.addEventListener('DOMContentLoaded', () => {
     loadListings('owner-listings-container');
 });
 
-
-
-const verifyPostsModalBody = document.getElementById('verifyPostsModalBody')
-const response = await fetch('/api/listings');
-if (!response.ok) {
-    throw new Error('Failed to fetch listings');
+function createListingCardForVerfication(listing) {
+    if (listing.verified) {
+        return
+    }
+    if (!listing.image) {
+        listing.image = "/images/pexels-markusspiske-102155.jpg";
+    }
+    return `
+        <div class="mb-4">
+            <div class="card listing-card">
+                <img src="${listing.image}" class="card-img-top" style="height: 500px; width: 100%; object-fit: cover">
+                <div class="card-body">
+                    <h5 class="card-title">${listing.title}</h5>
+                    <p class="card-text">$${listing.price}/month</p>
+                    <p><strong>Address:</strong> ${listing.address}</p>
+                    <p><strong>Description:</strong> ${listing.description}</p>
+                    <p><strong>Contact:</strong> ${listing.contact}</p>
+                    <a onclick="verifyPost('${listing.id}')" class="btn btn-primary">Verify Post</a>
+                </div>
+            </div>
+        </div>
+    `;
 }
-const listings = await response.json();
-verifyPostsModalBody.innerHTML = listings.map(createListingCardForVerfication).join('');
+
+window.verifyPost = async function (listingId) {
+    try {
+        await fetch(`/api/verifylisting/${listingId}`);
+        location.reload();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load listing details. Please try again.');
+    }
+}

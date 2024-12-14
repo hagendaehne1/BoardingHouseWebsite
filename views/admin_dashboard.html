@@ -18,9 +18,9 @@
     </header>
 
     <main class="container my-4">
-        <section id="create-post-section">
+        <section id="verify-post-section">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <button id="new-posts-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyPostsModal">
+                <button onclick="viewOpenRequests()" id="new-posts-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyPostsModal">
                     New Post Requests
                 </button>
             </div>
@@ -39,7 +39,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Listing Details</h5>
+                    <h5 class="modal-title" id="detailsModalLabel">Post Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="listing-details">
@@ -50,10 +50,9 @@
     </div>
 
 
-    <!-- Add verified list of posts that are not verified -->
-    <!-- Modal for Creating a Post -->
+    <!-- Modal for viewing new, unverified Posts -->
     <div class="modal fade" id="verifyPostsModal" tabindex="-1" aria-labelledby="verifyPostsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createPostModalLabel">Verify New Posts</h5>
