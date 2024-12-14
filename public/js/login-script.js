@@ -13,12 +13,12 @@ document.querySelector("form").addEventListener("submit", async (e) => {
 
         if (response.ok) {
             const data = await response.json();
-
+            console.log(data)
             // Redirect based on role
             if (data.role === "Owner") {
                 window.location.href = "/owner_dashboard";
             } else if (data.role === "Renter") {
-                window.location.href = "/general_dashboard";
+                window.location.href = "/user_dashboard";
             } else if (data.role === "Admin") {
                 window.location.href = "/admin_dashboard";
             }

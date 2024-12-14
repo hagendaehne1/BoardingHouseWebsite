@@ -36,6 +36,9 @@ app.get('/owner_dashboard', (req, res) => {
 app.get('/admin_dashboard', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'admin_dashboard.html'));
 });
+app.get('/user_dashboard', (req, res) => {
+  res.sendFile(path.join(import.meta.dirname, 'views', 'user_dashboard.html'));
+});
 app.get('/compare', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'comparison.html'));
 });

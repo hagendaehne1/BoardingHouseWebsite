@@ -52,11 +52,11 @@ if (user.password !== password) {
 }
 
     // Role-based response
-    if (user instanceof Owner) {
+    if (user.role === 'Owner') {
     return res.status(200).json({ message: "Login successful", role: "Owner" });
-    } else if (user instanceof User) {
+    } else if (user.role === 'User') {
     return res.status(200).json({ message: "Login successful", role: "Renter" });
-    } else if (user instanceof Admin) {
+    } else if (user.role === 'Admin') {
     return res.status(200).json({ message: "Login successful", role: "Admin" });
     } else {
     return res.status(400).send("User role not recognized.");

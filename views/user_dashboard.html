@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rental Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container d-flex justify-content-between align-items-center">
+                <h1 class="display-6 mb-0">User Dashboard</h1>
+                <a href="/" class="btn btn-outline-secondary">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <section id="filters" class="mb-4">
+            <!-- Filter Button -->
+            <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filter-dropdown" aria-expanded="false" aria-controls="filter-dropdown">
+                Filter Posts
+            </button>
+        
+            <!-- Collapsible Filter Form -->
+            <div class="collapse" id="filter-dropdown">
+                <form id="filter-form" class="d-flex flex-column gap-3">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label for="min-price" class="form-label">Min Price:</label>
+                            <input type="number" id="min-price" class="form-control" placeholder="Min">
+                        </div>
+                        <div class="col-6">
+                            <label for="max-price" class="form-label">Max Price:</label>
+                            <input type="number" id="max-price" class="form-control" placeholder="Max">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="button" id="reset-filters" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+
+        <section id="featured-listings">
+            <h2 class="mb-3">Posts</h2>
+            <form id="compare-form">
+                <div class="row" id="listings-container">
+                    <!-- Listings will be dynamically added here -->
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="submit" class="btn btn-success" id="compare-selected" disabled>
+                        Compare Selected
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Modal for displaying listing details -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Post Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="listing-details">
+                    <!-- Listing details will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">This is a demo website.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/user_dashboard-script.js"></script>
+</body>
+</html>
