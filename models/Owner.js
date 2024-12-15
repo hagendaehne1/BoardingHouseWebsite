@@ -1,11 +1,11 @@
-import User from './User.js';
+import User from './User.js'
 
 
 class Owner extends User {
     constructor(firstName, lastName, email, password) {
         super(firstName, lastName, email, password)
-        this.role = 'Owner';
+        this.role = 'Owner'
     }
 }
 
-export default Owner;
+export default Owner

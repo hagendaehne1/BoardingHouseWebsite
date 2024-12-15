@@ -1,22 +1,22 @@
 class UserController {
-    static users = [];
-    static owners = [];
-    static admins = [];
+    static users = []
+    static owners = []
+    static admins = []
   
     static addUser(user) {
-      this.users.push(user);
+      this.users.push(user)
     }
 
     static addOwner(owner) {
-      this.users.push(owner);
+      this.users.push(owner)
     }
 
     static addAdmin(admin) {
-      this.users.push(admin);
+      this.users.push(admin)
     }
   
     static getUsers() {
-      return this.users;
+      return this.users
     }
 
     static getUserByEmail(email) {
@@ -29,4 +29,4 @@ class UserController {
   
   }
   
-export default UserController;
+export default UserController

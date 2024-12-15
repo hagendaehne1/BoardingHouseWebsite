@@ -12,42 +12,41 @@
         <div class="container">
             <div class="header-container d-flex justify-content-between align-items-center">
                 <h1 class="display-6 mb-0">User Dashboard</h1>
-                <a href="/" class="btn btn-outline-secondary">Logout</a>
+                <a onclick="logout()" class="btn btn-outline-secondary">Logout</a>
             </div>
         </div>
     </header>
 
-    <main class="container my-4">
-        <section id="filters" class="mb-4">
-            <!-- Filter Button -->
-            <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filter-dropdown" aria-expanded="false" aria-controls="filter-dropdown">
-                Filter Posts
-            </button>
-        
-            <!-- Collapsible Filter Form -->
-            <div class="collapse" id="filter-dropdown">
-                <form id="filter-form" class="d-flex flex-column gap-3">
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <label for="min-price" class="form-label">Min Price:</label>
-                            <input type="number" id="min-price" class="form-control" placeholder="Min">
-                        </div>
-                        <div class="col-6">
-                            <label for="max-price" class="form-label">Max Price:</label>
-                            <input type="number" id="max-price" class="form-control" placeholder="Max">
-                        </div>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                        <button type="button" id="reset-filters" class="btn btn-secondary">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-        
+    <main class="container my-4">   
 
         <section id="featured-listings">
             <h2 class="mb-3">Posts</h2>
+            <section id="filters" class="mb-4">
+                <!-- Filter Button -->
+                <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filter-dropdown" aria-expanded="false" aria-controls="filter-dropdown">
+                    Filter Posts
+                </button>
+            
+                <!-- Collapsible Filter Form -->
+                <div class="collapse" id="filter-dropdown">
+                    <form id="filter-form" class="d-flex flex-column gap-3">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <label for="min-price" class="form-label">Min Price:</label>
+                                <input type="number" id="min-price" class="form-control" placeholder="Min">
+                            </div>
+                            <div class="col-6">
+                                <label for="max-price" class="form-label">Max Price:</label>
+                                <input type="number" id="max-price" class="form-control" placeholder="Max">
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <button type="button" id="reset-filters" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
             <form id="compare-form">
                 <div class="row" id="listings-container">
                     <!-- Listings will be dynamically added here -->

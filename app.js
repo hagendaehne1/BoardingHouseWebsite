@@ -5,6 +5,7 @@ import { initializeData } from './models/Initializer.js'
 
 import authRoutes from './routes/authRoutes.js';
 import listingRoutes from './routes/listingRoutes.js';
+import { authenticateToken, checkRole } from './middleware/authMiddleware.js';
 
 // Initialize the data (demo a database)
 initializeData();
@@ -20,7 +21,6 @@ app.use(express.json());
 app.use(authRoutes);
 app.use(listingRoutes);
 
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'general_dashboard.html'));
 });
@@ -30,15 +30,20 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'register.html'));
 });
-app.get('/owner_dashboard', (req, res) => {
+
+// Protected routes with role-based access
+app.get('/owner_dashboard', authenticateToken, checkRole(['Owner']), (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'owner_dashboard.html'));
 });
-app.get('/admin_dashboard', (req, res) => {
+
+app.get('/admin_dashboard', authenticateToken, checkRole(['Admin']), (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'admin_dashboard.html'));
 });
-app.get('/user_dashboard', (req, res) => {
+
+app.get('/user_dashboard', authenticateToken, checkRole(['User']), (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'user_dashboard.html'));
 });
+
 app.get('/compare', (req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'views', 'comparison.html'));
 });

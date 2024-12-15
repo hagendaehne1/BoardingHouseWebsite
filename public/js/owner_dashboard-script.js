@@ -1,3 +1,5 @@
+import { getCurrentUser } from './userUtils.js';
+
 window.viewDetails = async function(listingId) {
     try {
         const response = await fetch(`/api/listings/${listingId}`);
@@ -12,16 +14,30 @@ window.viewDetails = async function(listingId) {
     }
 };
 
-document.getElementById('create-post-form').addEventListener('submit', function (e) {
+window.logout = function() {
+    // Remove the token from localStorage
+    localStorage.removeItem('token')
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    
+    // Clear browser history and redirect
+    window.location.replace('/login');
+    
+    // Force a full page reload to clear any cached content
+    window.location.reload(true);
+}
+
+document.getElementById('create-post-form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const formData = new FormData();
+    const user = await getCurrentUser()
     formData.append("title", document.getElementById("post-title").value);
     formData.append("price", document.getElementById("post-price").value);
     formData.append("address", document.getElementById("post-address").value);
     formData.append("description", document.getElementById("post-description").value);
     formData.append("contact", document.getElementById("post-contact").value);
     formData.append("image", document.getElementById("post-image").files[0]);
+    formData.append("creator", user.email)
 
     console.log("Creating post with values:", formData.entries());
 
@@ -134,6 +150,72 @@ async function loadListings(containerId) {
     }
 }
 
+async function loadListingsCurrentOwner(containerId) {
+    try {
+        const user = await getCurrentUser();
+
+        const response = await fetch('/api/listingsCurrentOwner', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch listings');
+        }
+        const listingsByOwner = await response.json()
+        
+        const listingsContainer = document.getElementById(containerId);
+        if (!listingsContainer) {
+            console.error(`Container with ID "${containerId}" not found.`);
+            return;
+        }
+        
+        // Initially display all listings
+        displayListingsByOwner(listingsByOwner, containerId);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load listings. Please try again.');
+    }
+}
+
+function displayListingsByOwner(listings, containerId) {
+    const listingsContainer = document.getElementById(containerId);
+    if (listings.length === 0) {
+        listingsContainer.innerHTML = `<div class="d-flex justify-content-center align-items-center" style="height: 200px; width: 100%;">
+            <h3 class="text-center text-muted">Not Found</h3>
+        </div>`
+    } else {
+        listingsContainer.innerHTML = listings
+        .map(createListingCardByOwner)
+        .filter((card) => card !== undefined) // Remove undefined results (from unverified listings)
+        .join('');
+    }    
+}
+
+function createListingCardByOwner(listing) {
+    if (!listing.verified) {
+        return
+    }
+    if (!listing.image) {
+        listing.image = "/images/pexels-markusspiske-102155.jpg";
+    }
+    return `
+        <div class="col-md-4 mb-4">
+            <div class="card listing-card">
+                <img src="${listing.image}" class="card-img-top" style="height: 500px; width: 100%; object-fit: cover">
+                <div class="card-body">
+                    <h5 class="card-title">${listing.title}</h5>
+                    <p class="card-text">$${listing.price}/month</p>
+                    <a onclick="viewDetails('${listing.id}')" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // Display listings dynamically in the container
 function displayListings(listings, containerId) {
     const listingsContainer = document.getElementById(containerId);
@@ -212,4 +294,5 @@ function displayListingDetails(listing) {
 // Initialize listings on page load
 document.addEventListener('DOMContentLoaded', () => {
     loadListings('owner-listings-container');
+    loadListingsCurrentOwner('belongs-to-owner-listings-container');
 });

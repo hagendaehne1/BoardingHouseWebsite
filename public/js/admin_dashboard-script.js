@@ -22,6 +22,17 @@ window.viewOpenRequests = async function() {
     verifyPostsModalBody.innerHTML = listings.map(createListingCardForVerfication).join('');
 }
 
+window.logout = function() {
+    // Remove the token from localStorage
+    localStorage.removeItem('token')
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    
+    // Clear browser history and redirect
+    window.location.replace('/login');
+    
+    // Force a full page reload to clear any cached content
+    window.location.reload(true);
+}
 
 // Function to create a listing card
 function createListingCard(listing) {
@@ -224,6 +235,8 @@ function createListingCardForVerfication(listing) {
 window.verifyPost = async function (listingId) {
     try {
         await fetch(`/api/verifylisting/${listingId}`);
+        const test = await fetch('/api/listings')
+        console.log(await test.json())
         location.reload();
     } catch (error) {
         console.error('Error:', error);

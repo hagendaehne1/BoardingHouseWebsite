@@ -1,12 +1,12 @@
 document.querySelector("form").addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const role = document.getElementById("role").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    const firstName = document.getElementById("firstName").value
+    const lastName = document.getElementById("lastName").value
+    const role = document.getElementById("role").value
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+    const confirmPassword = document.getElementById("confirmPassword").value
 
     try {
         const response = await fetch("/register", {
@@ -20,17 +20,16 @@ document.querySelector("form").addEventListener("submit", async (e) => {
                 password, 
                 confirmPassword 
             }),
-        });
+        })
 
-        const message = await response.text();
+        const message = await response.text()
         if (response.ok) {
-            alert(message);
-            window.location.href = "/login";
+            window.location.href = "/login"
         } else {
-            alert(`Error: ${message}`);
+            alert(`Error: ${message}`)
         }
     } catch (err) {
-        console.error("Error:", err);
-        alert("An unexpected error occurred.");
+        console.error("Error:", err)
+        alert("An unexpected error occurred.")
     }
-});
+})

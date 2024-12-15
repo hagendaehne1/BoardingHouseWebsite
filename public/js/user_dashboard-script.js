@@ -31,6 +31,18 @@ function createListingCard(listing) {
     `;
 }
 
+window.logout = function() {
+    // Remove the token from localStorage
+    localStorage.removeItem('token')
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    
+    // Clear browser history and redirect
+    window.location.replace('/login');
+    
+    // Force a full page reload to clear any cached content
+    window.location.reload(true);
+}
+
 let selectedListings = []
 // Handle checkbox selection
 function handleSelection(listingId) {
@@ -64,6 +76,7 @@ document.getElementById("compare-form").addEventListener("submit", (e) => {
         window.location.href = "/compare"; // Redirect to the comparison page
     }
 });
+
 
 let allListings = []; // Store all listings globally to allow filtering
 
