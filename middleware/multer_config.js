@@ -4,7 +4,7 @@ import path from 'path'
 const storage = multer.diskStorage({
 destination: (req, file, cb) => {
     // Specify the directory where files will be saved
-    cb(null, "BoardingHouseWebsite/resources/images/") // 'uploads' directory must exist in your project folder
+    cb(null, "resources/images/") // 'uploads' directory must exist in your project folder
 },
 filename: (req, file, cb) => {
     // Save the file with a unique name

@@ -210,10 +210,21 @@ function createListingCardByOwner(listing) {
                     <h5 class="card-title">${listing.title}</h5>
                     <p class="card-text">$${listing.price}/month</p>
                     <a onclick="viewDetails('${listing.id}')" class="btn btn-primary">View Details</a>
+                    <a onclick="deletePost('${listing.id}')" class="btn btn-primary">Delete Post</a>
                 </div>
             </div>
         </div>
     `;
+}
+
+window.deletePost = async function(listingId) {
+    try {
+        await fetch(`/api/rejectlisting/${listingId}`);
+        location.reload();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load listing details. Please try again.');
+    }
 }
 
 // Display listings dynamically in the container
